@@ -1,0 +1,8 @@
+# Simple Loop System
+nano jaafari .py777o
+x word = input("Enter a word to repeat: ")
+
+# Repeat 3 times
+for i in range(3):
+    print(word)
+

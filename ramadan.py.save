@@ -1,0 +1,19 @@
+import samsungtvws
+import sys
+
+# ضع عنوان IP الخاص بالتلفاز هنا
+tv_ip = "192.168.1.XX" 
+
+try:
+    # الاتصال بالتلفاز
+    tv = samsungtvws.SamsungTVWS(tv_ip)
+    
+    # إرسال رسالة التهنئة كإشعار يظهر على الشاشة
+    message = "Ramadan Kareem! وكل عام وأنتم بخير"
+    tv.rest.show_message(message)
+    
+    print("✅ تم إرسال التهنئة بنجاح!")
+except Exception as e:
+    print(f"❌ فشل الاتصال: {e}")
+
+

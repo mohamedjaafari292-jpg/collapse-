@@ -1,0 +1,62 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# --- COLOR GENERATOR ---
+random_color() {
+    local colors=('\e[1;31m' '\e[1;32m' '\e[1;33m' '\e[1;34m' '\e[1;35m' '\e[1;36m')
+    echo -e "${colors[$((RANDOM % 6))]}"
+}
+
+NC='\e[0m'   # No Color
+G='\e[1;32m'
+B='\e[1;34m'
+Y='\e[1;33m'
+R='\e[1;31m'
+
+clear
+
+# --- DEVICE INFO DASHBOARD ---
+echo -e "${B}#################################################${NC}"
+echo -e "${G}     NETWORK OVERDRIVE: FULL CONTROL MODE${NC}"
+echo -e "${B}#################################################${NC}"
+echo -e "${Y}[SYSTEM INFO]${NC}"
+echo -e "DATE     : $(date +'%Y-%m-%d')"
+echo -e "TIME     : $(date +'%H:%M:%S')"
+echo -e "MODEL    : $(getprop ro.product.model)"
+echo -e "CPU      : $(getprop ro.product.cpu.abi)"
+echo -e "RAM      : $(free -m | awk 'NR==2{printf "%sMB / %sMB", $3, $2}')"
+echo -e "${B}-------------------------------------------------${NC}"
+
+# --- SYSTEM INJECTION ---
+echo -e "${G}[*] Injecting Cloudflare DNS Protocol...${NC}"
+echo "nameserver 1.1.1.1" > /etc/resolv.conf 2>/dev/null
+
+echo -e "${G}[*] Forcing Network Priority: HIGH${NC}"
+sleep 1
+echo -e "${R}[!] CAUTION: HIGH-FREQUENCY PULSE COMMENCING${NC}"
+echo -e "${B}-------------------------------------------------${NC}"
+
+# --- VISUAL MATRIX PULSE & DATA MONITOR ---
+trap "kill 0" EXIT
+
+# Loop for pulses with changing colors and live data
+ping -i 0.1 -s 128 8.8.8.8 | while read pong; do
+    # Get current interface (WiFi or Mobile Data)
+    INTERFACE=$(ip route | grep default | awk '{print $5}')
+    
+    # Read network stats
+    RX=$(cat /proc/net/dev | grep "$INTERFACE" | awk '{print $2}')
+    TX=$(cat /proc/net/dev | grep "$INTERFACE" | awk '{print $10}')
+    
+    # Convert to KB
+    RX_KB=$(($RX / 1024))
+    TX_KB=$(($TX / 1024))
+    
+    # Generate random color for this pulse
+    CLR=$(random_color)
+    
+    echo -ne "${CLR}>> PULSE TRANSMITTED${NC} | ${G}IN: ${RX_KB}KB${NC} | ${R}OUT: ${TX_KB}KB${NC} | ${Y}SEQ: $(echo $pong | cut -d' ' -f5)${NC}\r"
+    # Small delay to keep the UI clean
+    sleep 0.05
+done-
+
+

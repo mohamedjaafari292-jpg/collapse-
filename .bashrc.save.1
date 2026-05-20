@@ -1,0 +1,35 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+# --- إعدادات القوة القصوى ---
+# الألوان للواجهة
+G='\e[1;32m'; R='\e[1;31m'; B='\e[1;34m'; W='\e[1;37m'; NC='\e[0m'
+
+clear
+echo -e "${B}--- EXTREME NETWORK STABILIZER v2.0 ---${NC}"
+echo -e "${W}Status: ${G}Optimizing Packet Flow...${NC}"
+
+# 1. منع النظام من إيقاف المعالج أثناء العمل
+termux-wake-lock
+
+# 2. مصفوفة خوادم الـ DNS العالمية لضمان أسرع مسار
+SERVERS=("8.8.8.8" "1.1.1.1" "9.9.9.9" "208.67.222.222")
+
+# 3. وظيفة التنظيف عند الخروج
+trap "termux-wake-unlock; echo -e '\n${R}[!] Optimization Stopped.${NC}'; exit" SIGINT
+
+# --- حلقة المعالجة المكثفة ---
+while true; do
+    for server in "${SERVERS[@]}"; do
+        # إرسال حزم بيانات متزامنة (Parallel-like) لفرض نشاط الشبكة
+        # -i 0.2 تعني إرسال نبضة كل 0.2 ثانية (سرعة عالية جداً)
+        # -s 32 حجم حزمة بيانات كافٍ لإبقاء الهوائي في حالة الـ High Power State
+        
+        (ping -c 2 -i 0.2 -s 32 $server > /dev/null 2>&1) &
+        
+        # عرض الحالة الحقيقية للمستخدم
+        echo -ne "${G}\r[ACTIVE]${NC} Routing via: ${W}$server${NC} | Speeding up response... "
+    done
+    
+    # تحسين التزامن عبر تقليل وقت الانتظار لأقصى حد
+    sleep 0.5
+don

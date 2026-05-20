@@ -1,0 +1,8 @@
+# My first strategic logic script
+status = input("Enter your current state (Learning/Noise): ")
+
+if status == "Learning":
+    print("Pragmatic Logic: You are on the right path.")
+else:
+    print("Cold Truth: You are wasting your time.")
+

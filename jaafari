@@ -1,0 +1,10 @@
+# Authorized Users List
+users = ["Mohamed", "Admin", "Guest"]
+
+name = input("Enter your name: ")
+
+if name in users:
+    print(f"Success: Welcome {name}.")
+else:
+    print("Fail: Access Denied.")
+

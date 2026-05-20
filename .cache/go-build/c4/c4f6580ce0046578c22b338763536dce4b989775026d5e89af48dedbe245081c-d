@@ -1,0 +1,11 @@
+./errors.go
+./helpers.go
+./http.go
+./interfaces.go
+./libgobuster.go
+./logger.go
+./options.go
+./options_http.go
+./progress.go
+./useragents.go
+./version.go

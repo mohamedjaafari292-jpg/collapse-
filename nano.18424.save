@@ -1,0 +1,5 @@
+if status == "Learning":
+    print("Pragmatic Logic: You are on the right path.") # يجب وجود فراغ هنا
+else:
+    print("Cold Truth: You are wasting your time.") # ويجب وجود فراغ هنا
+

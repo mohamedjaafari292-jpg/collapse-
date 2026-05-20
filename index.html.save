@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaâfari | The Inevitable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000; /* Deep black background */
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            flex-direction: column; /* To stack hourglass and text */
+        }
+
+        .container {
+            text-align: center;
+            opacity: 0; /* Initially hidden for animation */
+            animation: fadeInContent 2s ease-in-out 1s forwards; /* Delay fade in */
+        }
+
+        .brand {
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            color: #444; /* Subtle grey for brand */
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            animation: fadeIn 3s ease-in; /* Existing fade-in for brand */
+        }
+
+        .hourglass-icon {
+            font-size: 4rem; /* Size of the hourglass */
+            color: #666; /* Darker grey for icon */
+            margin-bottom: 30px;
+            animation: spinAndFade 3s infinite linear; /* Spin and fade animation */
+        }
+
+        .quote {
+            font-size: 2.5rem;
+            font-weight: 300;
+            font-style: italic;
+            border-right: 2px solid #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 4s steps(30, end) forwards, blink 0.8s infinite;
+            animation-delay: 3s; /* Delay typing after content fade-in */
+        }
+
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0 }
+            to { opacity: 1 }
+        }
+
+        @keyframes blink {
+            from { border-color: transparent }
+            to { border-color: white }
+        }
+
+        @keyframes spinAndFade {
+            0% { transform: rotate(0deg); opacity: 0.5; }
+            50% { transform: rotate(180deg); opacity: 0.8; }
+            100% { transform: rotate(360deg); opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+
+    <div 
